@@ -4,12 +4,14 @@ const mongoose = require('mongoose');
 const Url = require('./models/url');
 const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
+const path = require('path');
 
 const app = express();
 
 // Handlebars for templating engine
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
+app.use(express.static(path.join(__dirname, '/public')));
 
 // bodyParser to parse information from forms
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -37,11 +39,11 @@ app.post('/urls', (req, res) => {
 
   Url.findOne({ longUrl: url.longUrl }, (err, doc) => {
     if (doc) {
-      res.render('show', { shortUrl: doc.shortUrl });
+      res.render('show', { hostname: req.headers.host, shortUrl: doc.shortUrl });
     } else {
       url.save((error, savedUrl) => {
         if (error) return console.error(error);
-        res.render('show', { shortUrl: savedUrl.shortUrl });
+        res.render('show', { hostname: req.headers.host, shortUrl: savedUrl.shortUrl });
       });
     }
   });
