@@ -11,6 +11,8 @@ const app = express();
 // Handlebars for templating engine
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
+
+// Static files to be served in `/public` folder
 app.use(express.static(path.join(__dirname, '/public')));
 
 // bodyParser to parse information from forms
