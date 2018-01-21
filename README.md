@@ -10,9 +10,9 @@ git clone https://github.com/gohdaniel15/express-url-shortener.git
 cd express-url-shortener
 ```
 
-2. Install packages needed
+2. Install packages needed using Yarn
 ```
-npm install
+yarn
 ```
 
 3. To run existing tests
